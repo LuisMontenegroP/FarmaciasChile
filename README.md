@@ -1,10 +1,14 @@
-# FarmaciasChile
+# FarmaciasValpo
 
+Aplicacion de farmacias que te permitirá ubicar aquellos locales farmaceuticos que estén mas cercanos a ti, además de poder buscar locales por direcciones especificas. 
 Aplicacion de farmacias que te permitirá ubicar aquellos locales farmaceuticos que estén mas cercanos a ti, además de poder buscar locales por direcciones especificas.
 
 Requisitos Tecnicos:
--
--
+
+-Plataformas:
+
+  Smartphones, Notebooks, Tables, PC.
+  Google Chrome, Mozilla Firefox, Safari, Opera.
 
 A quien va dirigida:
 
@@ -15,6 +19,8 @@ Funcionamiento:
 El usuario, por medio de la aplicacion en su dispositivo movil , ingresara al sitio que contendra la aplicacion . Esta mostrara la informacion de la farmacia mas cerca  dirigida al usuario.
 El usuario puede personalinzar la visualizacion de la aplicacion de forma que adopte sus mejores preferencias , ejemplo de ello usando el lecto de pantalla de su dispositivo movil  en paciente con discapacidad visual.
 La aplicacion aparte de entregar la farmacia mas cercana , entregara ofertas de productos de farmacias asociadas a la aplicacion, noticias farmaceuticas , campañas dispuesta por Ministerio de Salud y ofertas de trabajo para los establecimientos de la zona en que se encuentre el usuario.
+Además se podra hacer un filtro de la farmacia que desee, mostrando solamente dicha farmacia en el mapa y obtener una vista personalizada de éste.
+
 
 Objetivos:
 
