@@ -1,6 +1,15 @@
 # FarmaciasChile
 
+<<<<<<< Updated upstream
 Aplicacion de farmacias le mostrara al usuario la ubicación del establecimiento farmaceutico mas cercano, ademas este podra filtrar el establecimiento farmacutico de su preferencia, para tener una vista personalizada. 
+=======
+<<<<<<< HEAD
+Aplicacion de farmacias que te permitirá ubicar aquellos locales farmaceuticos que estén mas cercanos a ti, además de poder buscar locales por direcciones especificas.
+Aplicacion de farmacias que te permitirá ubicar aquellos locales farmaceuticos que estén mas cercanos a ti, además de poder buscar locales por direcciones especificas.
+=======
+Aplicacion de farmacias le mostrara al usuario la ubicación del establecimiento farmaceutico mas cercano, ademas este podra filtrar el establecimiento farmacutico de su preferencia, para tener una vista personalizada.
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 
 Requisitos Tecnicos:
 
