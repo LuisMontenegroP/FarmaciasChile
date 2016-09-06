@@ -1,3 +1,4 @@
 GeoFarmCL
 
-Aplicación de farmacias le mostrara al usuario la ubicación del establecimiento farmacéutico mas cercano; ademas este podrá filtrar el establecimiento farmacéutico de su preferencia, para tener una vista personalizada.
+
+Aplicación que mostrara al usuario la ubicación de el  establecimiento farmacéutico mas cercano;ademas permitirá utilizar filtros de acuerdo a su preferencia, para saber donde esta el establecimiento preferido. 
