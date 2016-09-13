@@ -1,0 +1,19 @@
+.capas {
+	border: 10px solid #000;
+	display: inline-block;
+	height: 500px;
+	vertical-align: top;
+	width: 90%;
+}
+
+body {
+	background-image: url("static/images/manage.jpg");
+}
+
+.lead {
+	text-align: justify;
+}
+
+#footer_upla {
+	text-align: center;
+}

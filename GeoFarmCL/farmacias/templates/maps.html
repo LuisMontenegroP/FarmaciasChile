@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} Google Maps {% endblock %}
+{% block content %}
+
+	<div class="col-lg-6">
+			<div class="jumbotron">
+				<form>
+					<div class="form-group">
+						<label for="sel1">Seleccione Farmacia a Filtrar:</label>
+						<select class="form-control" id="sel1">
+							<option></option>
+							<option>Farmacias Ahumada</option>
+							<option>Farmacias Cruz Verde</option>
+							<option>Farmacias Doctor Simi</option>
+							<option>Farmacias Knop</option>
+							<option>Farmacias Salcobrand</option>
+						</select>
+					</div>
+	 			</form>
+			</div>
+	</div>
+	<div class="col-lg-6">
+		<div id="mapa" class="capas" >
+
+		</div>
+	</div>
+
+{% endblock %}
