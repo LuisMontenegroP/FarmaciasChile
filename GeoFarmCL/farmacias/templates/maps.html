@@ -1,19 +1,17 @@
 {% extends "base.html" %}
 {% block title %} Google Maps {% endblock %}
 {% block content %}
-
+	<h1><span class="label label-warning">Google Maps</span></h1></br></br>
 	<div class="col-lg-6">
 			<div class="jumbotron">
 				<form>
 					<div class="form-group">
 						<label for="sel1">Seleccione Farmacia a Filtrar:</label>
 						<select class="form-control" id="sel1">
-							<option></option>
-							<option>Farmacias Ahumada</option>
-							<option>Farmacias Cruz Verde</option>
-							<option>Farmacias Doctor Simi</option>
-							<option>Farmacias Knop</option>
-							<option>Farmacias Salcobrand</option>
+							<option> </option>
+							{% for farmacias in farmacias_select %}
+										<option>{{ farmacias.local_nombre }}</option>
+							{% endfor %}
 						</select>
 					</div>
 	 			</form>

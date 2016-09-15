@@ -1,21 +1,17 @@
 from __future__ import unicode_literals
 
 from django.db import models
-	
-class Farmacias(models.Model):
-    local_id = models.IntegerField(primary_key=True)
-    local_nombre = models.TextField(blank=True, null=True)
-    comuna_nombre = models.TextField(blank=True, null=True)
-    localidad_nombre = models.TextField(blank=True, null=True)
-    local_direccion = models.TextField(blank=True, null=True)
-    funcionamiento_hora_apertura = models.TextField(blank=True, null=True)
-    funcionamiento_hora_cierre = models.TextField(blank=True, null=True)
-    local_telefono = models.TextField(blank=True, null=True)
-    local_lat = models.TextField(blank=True, null=True)
-    local_lng = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
-		return self.local_nombre
+class Farmacias(models.Model):
+    local_nombre = models.CharField(blank=True, null=True, max_length=200)
+    comuna_nombre = models.CharField(blank=True, null=True, max_length=200)
+    localidad_nombre = models.CharField(blank=True, null=True, max_length=200)
+    local_direccion = models.CharField(blank=True, null=True, max_length=200)
+    funcionamiento_hora_apertura = models.CharField(blank=True, null=True, max_length=200)
+    funcionamiento_hora_cierre = models.CharField(blank=True, null=True, max_length=200)
+    local_telefono = models.CharField(blank=True, null=True, max_length=200)
+    local_lat = models.FloatField(blank=True, null=True)
+    local_lng = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False

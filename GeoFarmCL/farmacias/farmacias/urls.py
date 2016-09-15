@@ -21,6 +21,7 @@ urlpatterns = [
 	url(r'^$', 'FarmaciasChile.views.index', name='index'),
     url(r'^admin/', admin.site.urls),
 	url(r'^maps/$', 'FarmaciasChile.views.maps', name='maps'),
+    url(r'^acercade/$', 'FarmaciasChile.views.acercade', name='acercade'),
     url(r'^farmacias/$', 'FarmaciasChile.views.farmacias', name='farmacias'),
     url(r'^autores/$', 'FarmaciasChile.views.autores', name='autores'),
     url(r'^centrodatos/$', 'FarmaciasChile.views.centrodatos', name='centrodatos'),

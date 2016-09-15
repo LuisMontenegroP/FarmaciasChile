@@ -25,7 +25,7 @@ SECRET_KEY = 'sa-s_7*kyto=1@zf=o(-zxduc3(&)hm%ou+spcz+2zjar$i6l2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

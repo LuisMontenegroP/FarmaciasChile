@@ -17,3 +17,7 @@ body {
 #footer_upla {
 	text-align: center;
 }
+
+#tabla_farmacias td {
+	font-size: 10px;
+}

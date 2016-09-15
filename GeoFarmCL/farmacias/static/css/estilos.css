@@ -17,3 +17,25 @@ body {
 #footer_upla {
 	text-align: center;
 }
+
+#tabla_farmacias td {
+	font-size: 10px;
+}
+
+.table-responsive {
+	height:250px;
+}
+
+tbody {
+    display:block;
+    height:250px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+thead {
+    width: calc( 100% - 1em )
+}
