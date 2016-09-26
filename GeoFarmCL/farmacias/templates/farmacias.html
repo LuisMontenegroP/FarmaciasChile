@@ -1,10 +1,45 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %} Farmacias {% endblock %}
 {% block content %}
 	<h1><span class="label label-warning">Farmacias</span></h1></br></br>
-    <div class="col-md-12">
-  			<div class="jumbotron" style="text-align:justify;">
-
-    		</div>
-  	</div>
+	<div class="col-md-12">
+			<div class="jumbotron" style="text-align:justify;">
+				<div class="container">
+					<div class="table-responsive">
+						<table class="table table-hover" id="tabla_farmacias">
+						<thead>
+							<tr>
+								<th>Local</th>
+								<th>Comuna</th>
+								<th>Localidad</th>
+								<th>Dirrección</th>
+								<th>Apertura</th>
+								<th>Cierre</th>
+								<th>Fono</th>
+								<th>Medicamento</th>
+								<th>Precio</th>
+							</tr>
+						</thead>
+						<tbody id="myTable">
+							{% for farmacia in farmacias %}
+									<tr class="success">
+										<td>{{ farmacia.local_nombre }}</td>
+										<td>{{ farmacia.comuna_nombre }}</td>
+										<td>{{ farmacia.localidad_nombre }}</td>
+										<td>{{ farmacia.local_direccion }}</td>
+										<td>{{ farmacia.funcionamiento_hora_apertura }}</td>
+										<td>{{ farmacia.funcionamiento_hora_cierre }}</td>
+										<td>{{ farmacia.local_telefono }}</td>
+										<td>{{ farmacia.medicamento }}</td>
+										<td>{{ farmacia.precio }}</td>
+									</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+</div>
 {% endblock %}
+<script src="{% static 'js/table_page.js' %}"></script>

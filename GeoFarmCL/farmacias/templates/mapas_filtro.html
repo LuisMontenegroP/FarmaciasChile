@@ -4,48 +4,38 @@
 	<h1><span class="label label-warning">Google Maps</span></h1></br></br>
 	<div class="col-lg-6">
 			<div class="jumbotron">
-				{% block filtro_farmacias %}
-						<form method="GET" action="{% url "filtrofarmacia" %}"> {% csrf_token %}
-								<select class="form-control" id="sel1" name="q">
-									<option disabled selected>Seleccione Farmacia a Filtrar</option>
-									{% for farmacias in farmacias_select %}
-												<option>{{ farmacias.local_nombre }}</option>
-									{% endfor %}
-								</select></br>
-								<button type="submit" class="btn btn-success">Filtrar</button>
-					 </form></br>
-				{% endblock %}
-				{% block filtro_medicamentos %}
-					 <form method="GET" action="{% url "filtromedicamentos" %}"> {% csrf_token %}
-								<select class="form-control" id="sel1" name="medic">
-									<option disabled selected>Seleccione un medicamento a buscar</option>
-									{% for medicamentos in medicamentos_select %}
-												<option>{{ medicamentos.medicamento }}</option>
-									{% endfor %}
-								</select></br>
-							 <button type="submit" class="btn btn-success">Seleccionar</button>
-			 			</form>
-				{% endblock %}
-				<div></br>
+				<form method="GET" action="{% url "maps" %}"> {% csrf_token %}
+					<div class="form-group">
+						<label for="sel1">Seleccione Farmacia a Filtrar:</label>
+						<select class="form-control" id="sel1">
+							<option> </option>
+							{% for farmacias in farmacias_select %}
+										<option>{{ farmacias.local_nombre }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					 <!--<button type="submit" class="btn btn-lg btn-success">Filtrar</button>-->
+	 			</form></br>
+				<div class="col-lg-12">
 					<form method="GET" action="resultados"> {% csrf_token %}
-							<select id="mode" class="form-control hidden" >
-								<option disabled selected value="DRIVING">Seleccione Modo de Viaje</option>
+							<label for="sel1">Seleccione Modo de Viaje:</label>
+							<select id="mode" class="form-control" >
+								<option value="DRIVING"> </option>
 								<option value="DRIVING">Vehículo</option>
 								<option value="WALKING">Caminata</option>
 								<option value="BICYCLING">Bicicleta</option>
 								<option value="TRANSIT">Tránsito</option>
 							</select></br>
-							<button type="submit" class="btn btn-success hidden">Seleccionar</button>
+							<!--<button type="submit" class="btn btn-lg btn-success">Seleccionar</button>-->
 					</form>
 				</div>
 			</div>
 	</div>
 	<div class="col-lg-6">
-		<div id="mapa" class="capas"></div>
+		<div id="mapa" class="capas"> </div>
 	</div>
 <script type="text/javascript">
 
-	{% block farmacias_filtro %}
 		$(function(){
 
 			if(navigator.geolocation) {
@@ -76,6 +66,8 @@
 					mapTypeId : google.maps.MapTypeId.ROADMAP
 				}
 
+
+
 				map = new google.maps.Map($('#mapa').get(0), mapSettings);
 
 
@@ -93,6 +85,19 @@
 				{% endblock %}
 
 				var image = 'https://cdn1.iconfinder.com/data/icons/medicine-20/48/Hospital-32.png';
+
+				/*var farmacia = new google.maps.Marker({
+					position: {lat: -33.58093611478459, lng: -71.61264272236116},
+					map : map,
+					icon : image,
+					title: 'FARMACIAS CRUZ VERDE'
+				});
+
+				var farmacia_2 = new google.maps.Marker({
+					position: {lat: -33.58519061711135, lng: -71.60710664295442},
+					map : map,
+					icon : image,
+				});*/
 
 				function loadMarkers(){
 
@@ -128,11 +133,6 @@
 																	'<h3>Disponibilidad</h3>'+
 																	'<p>Apertura: {{ punto.funcionamiento_hora_apertura }}</p></br>'+
 																	'<p>Cierre: {{ punto.funcionamiento_hora_cierre }}</p>'+
-																'</div>'+
-																'<div class="container-fluid bg-3 text-center" style="background-color: #474e5d; color: #ffffff;">'+
-																	'<h3 style="color:#DAC905;">OFERTA!!!</h3>'+
-																	'<p>Medicamento: {{ punto.medicamento }}</p></br>'+
-																	'<p>Precio: ${{ punto.precio }}</p></br>'+
 																'</div>';
 
 						var infowindow_{{punto.id}} = new google.maps.InfoWindow({
@@ -140,21 +140,18 @@
 							maxWidth: 220
 						});
 
+						var point = new google.maps.LatLng({{punto.local_lat}},{{punto.local_lng}});
 						var punto_{{punto.id}} = new google.maps.Marker({
-							position: new google.maps.LatLng({{punto.local_lat}},{{punto.local_lng}}),
+							position: point,
 							map: map,
 							icon: image,
 							title : '{{ punto.local_nombre }}',
 							content: contentString
 						});
 
-						google.maps.event.addListener(punto_{{punto.id}}, 'click', (function (punto_{{punto.id}}) {
-								return function () {
-										infowindow_{{punto.id}}.open(map, punto_{{punto.id}});
-										map.panTo(this.getPosition());
-										map.setZoom(15);
-								}
-						})(punto_{{punto.id}}));
+						punto_{{punto.id}}.addListener('click', function() {
+						 infowindow_{{punto.id}}.open(map, punto_{{punto.id}});
+						});
 
 					{% endfor %}
 				};
@@ -163,7 +160,6 @@
 				{% block resultados %} {% endblock %}
 			}
 		});
-		{% endblock %}
 
 </script>
 <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>

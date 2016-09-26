@@ -10,9 +10,12 @@ class Farmacias(models.Model):
     funcionamiento_hora_apertura = models.CharField(blank=True, null=True, max_length=200)
     funcionamiento_hora_cierre = models.CharField(blank=True, null=True, max_length=200)
     local_telefono = models.CharField(blank=True, null=True, max_length=200)
-    local_lat = models.FloatField(blank=True, null=True)
-    local_lng = models.FloatField(blank=True, null=True)
+    local_lat = models.IntegerField(blank=True, null=True)
+    local_lng = models.IntegerField(blank=True, null=True)
+    medicamento = models.CharField(blank=True, null=True, max_length=200)
+    precio = models.IntegerField(blank=True, null=True)
 
     class Meta:
+        ordering = ["local_nombre"]
         managed = False
         db_table = 'farmacias'

@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 admin.autodiscover()
 
+
 urlpatterns = [
 	url(r'^$', 'FarmaciasChile.views.index', name='index'),
     url(r'^admin/', admin.site.urls),
@@ -24,5 +25,9 @@ urlpatterns = [
     url(r'^acercade/$', 'FarmaciasChile.views.acercade', name='acercade'),
     url(r'^farmacias/$', 'FarmaciasChile.views.farmacias', name='farmacias'),
     url(r'^autores/$', 'FarmaciasChile.views.autores', name='autores'),
-    url(r'^centrodatos/$', 'FarmaciasChile.views.centrodatos', name='centrodatos'),
+    url(r'^conclusiones/$', 'FarmaciasChile.views.conclusiones', name='conclusiones'),
+    url(r'^maps/resultados/$', 'FarmaciasChile.views.resultados', name='resultados'),
+    url(r'^maps/filtrofarmacia/$', 'FarmaciasChile.views.filtrofarmacia', name='filtrofarmacia'),
+    url(r'^maps/filtromedicamentos/$', 'FarmaciasChile.views.filtromedicamentos', name='filtromedicamentos'),
+   #url(r'^ruta/$', 'FarmaciasChile.views.ruta', name="ruta"),
 ]

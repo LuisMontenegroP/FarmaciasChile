@@ -5,12 +5,13 @@
 	<meta charset="utf-8">
 
     <title >GeoFarmCL | {% block title %} {% endblock %}</title>
+		<link rel="shortcut icon" href="{% static 'img/logo.png' %}">
 
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href=" {% static 'bootstrap/css/bootstrap.min.css' %}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
     <link rel="stylesheet" href=" {% static 'bootstrap/css/bootstrap-theme.min.css' %}" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -27,8 +28,8 @@
             <li role="presentation" class="active"><a href="{% url "index" %}">Inicio</a></li>
 						<li role="presentation"><a href="{% url "acercade" %}">Acerca de</a></li>
             <li role="presentation"><a href="{% url "farmacias" %}">Farmacias</a></li>
-						<li role="presentation"><a href="{% url "centrodatos" %}">Centro de Datos</a></li>
             <li role="presentation"><a href="{% url "autores" %}">Autores</a></li>
+						<li role="presentation"><a href="{% url "conclusiones" %}">Conclusiones</a></li>
           </ul>
         </nav></br></br>
         <h1>
@@ -44,7 +45,7 @@
       <div class="jumbotron">
         <h1><font color="#2F5BB2">Proyecto Django Taller Integrado</font></h1>
         <p class="lead">
-					GeoFarmCL es una aplicación que ubica las farmacias más cercanas del usuario mediante geolocalización permitiéndole escoger aquellas de su preferencia. Su objetivo principal es optimizar el tiempo de llegada.
+					GeoFarmCL es una aplicación que ubica las farmacias más cercanas del usuario mediante geolocalización permitiéndole escoger aquellas de su preferencia. Su objetivo principal es optimizar el tiempo de búsqueda y llegada.
 				</p>
         <div class="row marketing">
 	        <div class="col-lg-4">
@@ -64,14 +65,14 @@
       </div></br></br></br>
 
       <div class="panel panel-default">
-	  	<div class="panel-footer"><p id="footer_upla">Proyecto Django Taller Integrado - GeoFarm - Ingeniería Informática c/m - <a href="http://www.upla.cl" target="_blank">Universidad de Playa Ancha</a> - Septiembre 2016</p></div>
+	  	<div class="panel-footer"><p id="footer_upla">Proyecto Django Taller Integrado - GeoFarmCL - Ingeniería Informática c/m - <a href="http://www.upla.cl" target="_blank">Universidad de Playa Ancha</a> - Septiembre 2016</p></div>
 	  </div>
 
 
     </div>
 	<script src="{% static 'jquery/jquery-3.1.0.min.js' %}"></script>
-	<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-	<script src="{% static 'js/script.js' %}"></script>
-	<script src="{% static 'js/table_page.js' %}"></script>
+	<!--<script src="{% static 'js/script.js' %}"></script>-->
+	<!--<script src="{% static 'js/table_page.js' %}"></script>-->
+
 </body>
 </html>

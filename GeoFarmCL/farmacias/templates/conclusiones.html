@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %} Conclusiones {% endblock %}
+{% block content %}
+	<h1><span class="label label-warning">Conclusiones</span></h1></br></br>
+  <div class="col-sm-12">
+			<div class="jumbotron" style="text-align:justify;">
+				<h3><font color="#2F5BB2">Sugerencias al Proyecto</font></h3></br>
+
+				<h4><font color="#2F5BB2">Limitaciones del proyecto</font></h4>
+				<p>
+					Unas de las limitaciones más significativas de esta aplicación web, es que todo tipo de filtros que se realicen,
+					son cargados en otra página web, y no en el mismo marco del mapa de manera instantanea. Esto produce un exceso
+					de utilizacion de los recursos del sistema.
+				</p>
+				<p>
+					Esta aplicación contiene una base de datos muy limitada por lo que no es posible visualizar muchas variedades de
+					datos. Una consecuencia de esto es que no es posible mostrar todas las ofertas de todos los locales, puesto que
+					en la base original no vienen estos campos. Por lo que se tuvo que enriquecer esta base de datos con algunos locales
+					de forma de protoipo de para ver su funcionalidad, mostrar los locales que tengas la mejor oferta de precio.
+				</p>
+				<p>
+					A lo anterior se le puede agregar además otros datos, como noticias farmaceuticas, campañas dispuesta por
+					Ministerio de Salud y ofertas de trabajo para los establecimientos de la zona en que se encuentre el usuario.
+					De esta manera se podrá una base de datos mas solida y rica en datos.
+				</p>
+
+				<h4><font color="#2F5BB2">Sugerencias a trabajos futuros</font></h4>
+				<p>
+					Se podría optimizar el tema de los filtros en el mapa, de manera que estos sean cargados dentro del mismo marco
+					y no en otras páginas web, reduciendo los esfuerzos del sistema de utilizar recursos en exceso.
+				</p>
+				<p>
+					Sería bueno tener un centro de estadísticas que pudiera mostrar los locales que son marcados como rutas para
+					para poder visualizar las tendencias de los usuarios y alimentar con esta información a dichos locales para
+					promover más ofertas de precios.
+				</p>
+				<p>
+					Debería haber un encargado exclusivamente de la base de datos para que se encargue de la actualización de los
+					estos de manera que cuando el usuario desee buscar ofertas laborales, precios, etc, esté todo al día.
+				</p>
+			</div>
+	</div>
+{% endblock %}

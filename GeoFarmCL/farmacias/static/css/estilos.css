@@ -39,3 +39,7 @@ thead, tbody tr {
 thead {
     width: calc( 100% - 1em )
 }
+
+.hidden {
+	visibility:hidden;
+}

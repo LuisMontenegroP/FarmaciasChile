@@ -1,0 +1,200 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="https://cdn1.iconfinder.com/data/icons/medicine-20/48/Hospital-32.png">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href=" {% static 'bootstrap/css/bootstrap-theme.min.css' %}" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <title>Filtro de Markers</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    		$(function(){
+
+          if(navigator.geolocation) {
+    				navigator.geolocation.getCurrentPosition(getCoords, getError);
+    			} else {
+    				initialize(-33.02347571775099, -71.6417472);
+    			}
+
+    			function getCoords(position) {
+
+    				var lat = position.coords.latitude;
+    				var lng = position.coords.longitude;
+
+    				initialize(lat, lng);
+    			}
+
+    			function getError(err) {
+
+    				initialize(-33.02347571775099, -71.6417472);
+    			}
+
+        var gmarkers1 = [];
+        var  markers1 = [];
+        var contentString = '<div id="content">'+
+                            '<div class="container-fluid bg-1 text-center" style="background-color: #1abc9c; color: #ffffff;">'+
+                              '<h4>{{ punto.local_nombre }}<h4>'+
+                              '<img src="" class="img-circle">'+
+                              '<img src="http://www.farmaciadiez.es/wp-content/uploads/2013/04/atencion-farmaceutica.jpg"'+
+                                        'class="img-responsive img-circle center-block" width="100" height="70">'+
+                            '</div>'+
+                            '<div class="container-fluid bg-2 text-center" style="background-color: #fff; color: #555555;">'+
+                            '<form method="GET" action="/maps/resultados/?query={lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}">'+
+                                '<label>¿Desea Marcar este local como ruta?</label>'+
+                                '<div class="radio">'+
+                                  '<label><input type="radio" name="query" value="{lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}">Si</label>'+
+                                '</div>'+
+                               '<button type="submit" class="btn btn-default">Marcar como ruta</button>'+
+                            '</form></br>'+
+                            '</div>'+
+                                  //'</br><a href="/maps/resultados/?query={lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}">¿Marcar como Ruta?</a>'+
+                                  //'<br/><label>Si <input type="radio" name="query" value="{lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}"></label>'+
+                            '<div class="container-fluid bg-3 text-center" style="background-color: #474e5d; color: #ffffff;">'+
+                              '<h3>Dirección</h3>'+
+                              '<p>{{ punto.local_direccion }}</p></br>'+
+                            '</div>'+
+                            '<div class="container-fluid bg-2 text-center" style="background-color: #fff; color: #555555;">'+
+                              '<h3>Teléfono</h3>'+
+                              '<p>{{ punto.local_telefono }}</p>'+
+                            '</div>'+
+                            '<div class="container-fluid bg-1 text-center" style="background-color: #1abc9c; color: #ffffff;">'+
+                              '<h3>Disponibilidad</h3>'+
+                              '<p>Apertura: {{ punto.funcionamiento_hora_apertura }}</p></br>'+
+                              '<p>Cierre: {{ punto.funcionamiento_hora_cierre }}</p>'+
+                            '</div>'+
+                            '<div class="container-fluid bg-3 text-center" style="background-color: #474e5d; color: #ffffff;">'+
+                              '<h3 style="color:#DAC905;">OFERTA!!!</h3>'+
+                              '<p>Medicamento: {{ punto.medicamento }}</p></br>'+
+                              '<p>Precio: ${{ punto.precio }}</p></br>'+
+                            '</div>';
+            var infowindow = new google.maps.InfoWindow({
+              // for(markers i)
+              content: contentString,
+              maxWidth: 200
+            });
+
+        // Our markers
+        markers1 = [
+          {% for punto in farmacias %}
+            ['{{ punto.id }}', '{{ punto.local_nombre }}', {{ punto.local_lat }}, {{ punto.local_lng }}, '{{ punto.local_nombre }}', '{{ punto.local_nombre }}', '{{ punto.local_nombre }}'],
+          {% endfor %}
+        ];
+
+        /**
+        * Function to init map
+        */
+
+        function initialize(lat, lng) {
+          var latlng = new google.maps.LatLng(lat, lng);
+          var mapOptions = {
+              zoom: 17,
+              center: latlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+          for (i = 0; i < markers1.length; i++) {
+              addMarker(markers1[i]);
+          }
+
+          geoloccontrol = new klokantech.GeolocationControl(map);
+          {% block marker %}
+
+              var marker = new google.maps.Marker({
+                position : latlng,
+                map : map,
+                draggable : false,
+                title : 'Aquí estoy yo!',
+                animation : google.maps.Animation.BOUNCE
+              });
+
+          {% endblock %}
+        }
+
+        /**
+        * Function to add marker to map
+        */
+
+        function addMarker(marker) {
+          var category = marker[4];
+          var title = marker[1];
+          var pos = new google.maps.LatLng(marker[2], marker[3]);
+          var content = marker[1];
+          var image = 'https://cdn1.iconfinder.com/data/icons/medicine-20/48/Hospital-32.png';
+
+
+          marker1 = new google.maps.Marker({
+              title: title,
+              position: pos,
+              category: category,
+              map: map,
+              icon: image
+          });
+
+          gmarkers1.push(marker1);
+
+          // Marker click listener
+          google.maps.event.addListener(marker1, 'click', (function (marker1) {
+              return function () {
+                  infowindow.open(map, marker1);
+                  map.panTo(this.getPosition());
+                  map.setZoom(17);
+              }
+          })(marker1));
+
+        }
+
+        /**
+        * Function to filter markers by category
+        */
+
+        filterMarkers = function (category) {
+          for (i = 0; i < markers1.length; i++) {
+              marker = gmarkers1[i];
+              // If is same category or category not picked
+              if (marker.category == category || category.length === 0) {
+                  marker.setVisible(true);
+              }
+              // Categories don't match
+              else {
+                  marker.setVisible(false);
+              }
+          }
+        }
+        // Init map
+        initialize();
+
+        		});
+
+    </script>
+  </head>
+  <body>
+      <select id="type" onchange="filterMarkers(this.value);" class="form-control">
+            <option value="">Porfavor seleccione una farmacia</option>
+            {% for farmacias in farmacias_select %}
+              <option value="{{farmacias.local_nombre}}">{{farmacias.local_nombre}}</option>
+            {% endfor %}
+      </select>
+        <div class="row marketing">
+	        <div class="col-lg-12">
+            <div id="map-canvas" style="height: 645px;"></div>
+	    	  </div>
+    <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyA7G1ONIMPWfz1cgLrDdvyzTyCOyhVLNJI"></script>
+  </body>
+</html>

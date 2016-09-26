@@ -1,0 +1,147 @@
+{% extends "maps.html" %}
+{% block marker %} {% endblock %}
+{% block filtro_farmacias %}
+		<form method="GET" action="{% url "filtrofarmacia" %}"> {% csrf_token %}
+				<select class="form-control" id="sel1" name="q">
+					<option disabled selected>{{q}}</option>
+					{% for farmacias in farmacias_select %}
+								<option>{{ farmacias.local_nombre }}</option>
+					{% endfor %}
+				</select></br>
+				<button type="submit" class="btn btn-success">Filtrar</button>
+		</form></br>
+{% endblock %}
+{% block farmacias_filtro %}
+$(function(){
+
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(getCoords, getError);
+	} else {
+		initialize(-33.02347571775099, -71.6417472);
+	}
+
+	function getCoords(position) {
+
+		var lat = position.coords.latitude;
+		var lng = position.coords.longitude;
+
+		initialize(lat, lng);
+	}
+
+	function getError(err) {
+
+		initialize(-33.02347571775099, -71.6417472);
+	}
+
+	function initialize(lat, lng) {
+
+		var latlng = new google.maps.LatLng(lat, lng);
+		var mapSettings = {
+			center : latlng,
+			zoom : 15,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		}
+
+
+
+		map = new google.maps.Map($('#mapa').get(0), mapSettings);
+
+
+		geoloccontrol = new klokantech.GeolocationControl(map);
+
+
+				var marker = new google.maps.Marker({
+					position : latlng,
+					map : map,
+					draggable : false,
+					title : 'Aquí estoy yo!',
+					animation : google.maps.Animation.BOUNCE
+				});
+
+
+
+		var image = 'https://cdn1.iconfinder.com/data/icons/medicine-20/48/Hospital-32.png';
+
+		/*var farmacia = new google.maps.Marker({
+			position: {lat: -33.58093611478459, lng: -71.61264272236116},
+			map : map,
+			icon : image,
+			title: 'FARMACIAS CRUZ VERDE'
+		});
+
+		var farmacia_2 = new google.maps.Marker({
+			position: {lat: -33.58519061711135, lng: -71.60710664295442},
+			map : map,
+			icon : image,
+		});*/
+
+		function loadMarkers(){
+
+			{% for punto in farmacias_filtro %}
+
+				var contentString = '<div id="content">'+
+														'<div class="container-fluid bg-1 text-center" style="background-color: #1abc9c; color: #ffffff;">'+
+															'<h4>{{ punto.local_nombre }}<h4>'+
+															'<img src="" class="img-circle">'+
+															'<img src="http://www.farmaciadiez.es/wp-content/uploads/2013/04/atencion-farmaceutica.jpg"'+
+																				'class="img-responsive img-circle center-block" width="100" height="70">'+
+														'</div>'+
+														'<div class="container-fluid bg-2 text-center" style="background-color: #fff; color: #555555;">'+
+														'<form method="GET" action="/maps/resultados/?query={lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}">'+
+																'<label>¿Desea Marcar este local como ruta?</label>'+
+																'<div class="radio">'+
+																	'<label><input type="radio" name="query" value="{lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}">Si</label>'+
+																'</div>'+
+															 '<button type="submit" class="btn btn-default">Marcar como ruta</button>'+
+														'</form></br>'+
+														'</div>'+
+																	//'</br><a href="/maps/resultados/?query={lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}">¿Marcar como Ruta?</a>'+
+																	//'<br/><label>Si <input type="radio" name="query" value="{lat:{{ punto.local_lat}},lng:{{punto.local_lng}}}"></label>'+
+														'<div class="container-fluid bg-3 text-center" style="background-color: #474e5d; color: #ffffff;">'+
+															'<h3>Dirección</h3>'+
+															'<p>{{ punto.local_direccion }}</p></br>'+
+														'</div>'+
+														'<div class="container-fluid bg-2 text-center" style="background-color: #fff; color: #555555;">'+
+															'<h3>Teléfono</h3>'+
+															'<p>{{ punto.local_telefono }}</p>'+
+														'</div>'+
+														'<div class="container-fluid bg-1 text-center" style="background-color: #1abc9c; color: #ffffff;">'+
+															'<h3>Disponibilidad</h3>'+
+															'<p>Apertura: {{ punto.funcionamiento_hora_apertura }}</p></br>'+
+															'<p>Cierre: {{ punto.funcionamiento_hora_cierre }}</p>'+
+														'</div>'+
+														'<div class="container-fluid bg-3 text-center" style="background-color: #474e5d; color: #ffffff;">'+
+															'<h3 style="color:#DAC905;">OFERTA!!!</h3>'+
+															'<p>Medicamento: {{ punto.medicamento }}</p></br>'+
+															'<p>Precio: ${{ punto.precio }}</p></br>'+
+														'</div>';
+
+				var infowindow_{{punto.id}} = new google.maps.InfoWindow({
+					content: contentString,
+					maxWidth: 220
+				});
+
+				var punto_{{punto.id}} = new google.maps.Marker({
+					position: new google.maps.LatLng({{punto.local_lat}},{{punto.local_lng}}),
+					map: map,
+					icon: image,
+					title : '{{ punto.local_nombre }}',
+					content: contentString
+				});
+
+				google.maps.event.addListener(punto_{{punto.id}}, 'click', (function (punto_{{punto.id}}) {
+						return function () {
+								infowindow_{{punto.id}}.open(map, punto_{{punto.id}});
+								map.panTo(this.getPosition());
+								map.setZoom(15);
+						}
+				})(punto_{{punto.id}}));
+
+			{% endfor %}
+		};
+
+		loadMarkers();
+		{% block resultados %} {% endblock %}
+	}
+});
+{% endblock %}
